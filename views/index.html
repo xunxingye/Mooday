@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <script src="js/theme.js?v=1.2"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mooday - 月亮知道你的心</title>
+  <link rel="icon" href="img/logo.png" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="img/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+  <link rel="stylesheet" href="css/style.css?v=18.1">
+</head>
+<body>
+  <!-- 全屏视频背景（置于 body 内最顶层） -->
+  <video id="bgVideo" autoplay muted loop playsinline>
+    <!-- 请根据你项目的实际路径调整 src（这里假设 img/CatCoffe.mp4 在项目根的 img 文件夹下） -->
+    <source src="img/CatCoffe.mp4" type="video/mp4">
+    您的浏览器不支持视频标签。
+  </video>
+
+  <!-- 顶部导航栏 -->
+  <header class="top-nav">
+    <a href="/" class="nav-brand">
+      <img src="img/logo.png" alt="Mooday Logo" class="nav-logo">
+      <span class="nav-title">Mooday</span>
+    </a>
+    
+    <div class="nav-right">
+      <button id="noticeBtn" class="nav-notice-btn" title="查看公告">
+        <i class="fas fa-bullhorn"></i>
+      </button>
+      <button id="themeToggle" class="theme-toggle" title="切换主题">🌓</button>
+      
+      <div class="user-controls-wrapper">
+        <div id="guestControls">
+          <a href="/login" class="glass-btn">登录 / 注册</a>
+        </div>
+        <div id="userControls" class="user-menu-container" style="display: none;">
+          <button class="glass-btn user-trigger">
+            <span id="usernameDisplay"></span>
+            <span class="dropdown-icon">▼</span>
+          </button>
+          <div class="user-dropdown">
+            <button id="changePwdBtn" class="dropdown-item">修改密码</button>
+            <button id="logoutBtn" class="dropdown-item">退出</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="layout-wrapper">
+      <main class="page">
+        <!-- 顶部标题区 - 仅留 Logo -->
+        <section class="main-header">
+          <img src="img/logo.png" alt="Mooday Logo" class="hero-logo">
+          <p class="subtitle"><span>月亮</span>知道你的<span>心</span></p>
+        </section>
+
+        <!-- 输入区域 -->
+        <section class="diary-section">
+          <div class="diary-wrapper">
+            <textarea id="diary" placeholder="什么都不确定？没事，只管写" maxlength="800"></textarea>          </div>
+          <div class="char-count">
+            <span id="charCount">0</span>/800
+          </div>
+        </section>
+
+        <!-- 心情选择区 -->
+        <section class="mood-section">
+          <h3 class="section-title">此刻的状态？</h3>
+          <div class="status-selector-container">
+            <button id="statusToggleBtn" class="status-toggle-btn">
+              <div class="status-icon">✨</div>
+              <div class="status-info">
+                <span class="status-placeholder">选择一个状态...</span>
+                <span class="status-selected-label" style="display: none;"></span>
+              </div>
+              <div class="toggle-arrow">展开</div>
+            </button>
+          </div>
+        </section>
+
+        <!-- 操作按钮区 -->
+        <section class="action-section">
+          <button class="action-btn primary" id="saveBtn">
+            <span class="btn-icon">💾</span>
+            <span class="btn-text">保存今日</span>
+          </button>
+          <button class="action-btn secondary" id="calendarBtn">
+            <span class="btn-icon">📅</span>
+            <span class="btn-text">查看日历</span>
+          </button>
+        </section>
+      </main>
+
+      <!-- 状态选择浮窗 (移至外部) -->
+      <aside id="statusPicker" class="status-picker-sidebar" style="display: none;">
+        <div class="picker-inner">
+          <div class="picker-header">
+            <h4>心情</h4>
+          </div>
+          <div class="picker-grid" id="moodPickerGrid">
+            <!-- 动态生成 -->
+          </div>
+          <div class="picker-header">
+            <h4>活动</h4>
+          </div>
+          <div class="picker-grid" id="activityPickerGrid">
+            <!-- 动态生成 -->
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- 浮动提示 -->
+  <div id="toast" class="toast" aria-hidden="true">
+    <div class="toast-content">
+      <span class="toast-icon"></span>
+      <span class="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- 修改密码模态框 -->
+  <div id="pwdModal" class="modal" aria-hidden="true">
+    <div class="modal-inner">
+      <button class="modal-close" id="closePwdModal">×</button>
+      <h3 class="modal-title">修改密码</h3>
+      <form id="changePwdForm">
+        <div class="form-group">
+          <input type="password" id="oldPassword" placeholder="当前密码" required>
+        </div>
+        <div class="form-group">
+          <input type="password" id="newPassword" placeholder="新密码" required>
+        </div>
+        <div class="form-group">
+          <input type="password" id="confirmNewPassword" placeholder="确认新密码" required>
+        </div>
+        <div class="form-group">
+          <div class="captcha-row">
+            <input type="text" id="pwdCaptcha" placeholder="验证码（不区分大小写）" maxlength="4" required>
+            <img src="/api/captcha" class="captcha-img" id="pwdCaptchaImg" title="点击刷新">
+          </div>
+        </div>
+        <button type="submit" class="action-btn primary full-width">确认修改</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 公告模态框 -->
+  <div id="noticeModal" class="modal" aria-hidden="true">
+    <div class="modal-inner notice-modal-inner">
+      <button class="modal-close" id="closeNoticeModal">×</button>
+      <h3 class="modal-title">公告中心</h3>
+      <div id="noticeList" class="notice-list">
+        <!-- 动态加载 -->
+        <div class="notice-loading">正在加载公告...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 装饰元素 -->
+  <div class="floating-elements">
+    <div class="float-element" style="--delay: 0s; --duration: 8s; --x: 10%; --y: 20%;">✨</div>
+    <div class="float-element" style="--delay: 2s; --duration: 12s; --x: 85%; --y: 15%;">🌟</div>
+    <div class="float-element" style="--delay: 4s; --duration: 10s; --x: 15%; --y: 80%;">💫</div>
+    <div class="float-element" style="--delay: 6s; --duration: 14s; --x: 90%; --y: 75%;">✨</div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+  <!-- 升级版本号以强制刷新缓存，确保修复后的交互脚本生效 -->
+  <script src="js/script.js?v=18.1"></script>
+</body>
+</html>

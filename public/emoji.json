@@ -1,0 +1,98 @@
+{
+    "moods": [
+        {
+            "name": "开心",
+            "emoji": "😋"
+        },
+        {
+            "name": "兴奋",
+            "emoji": "😆"
+        },
+                {
+            "name": "爽",
+            "emoji": "😎"
+        },
+        {
+            "name": "平静",
+            "emoji": "😌"
+        },
+        {
+            "name": "无聊",
+            "emoji": "😑"
+        },
+        {
+            "name": "胡思乱想",
+            "emoji": "🤔"
+        },
+        {
+            "name": "焦虑",
+            "emoji": "😰"
+        },
+        {
+            "name": "疲惫",
+            "emoji": "🫠"
+        },
+        {
+            "name": "生气",
+            "emoji": "😠"
+        },
+        {
+            "name": "红温",
+            "emoji": "😡"
+        },
+        {
+            "name": "孤独",
+            "emoji": "🥲"
+        },
+        {
+            "name": "裂开",
+            "emoji": "😵‍💫"
+        },
+        {
+            "name": "emo",
+            "emoji": "😟"
+        },
+        {
+            "name": "难受",
+            "emoji": "😭"
+        }
+    ],
+    "activities": [
+        {
+            "name": "学习",
+            "emoji": "📚"
+        },
+        {
+            "name": "粗去玩",
+            "emoji": "✈️"
+        },
+        {
+            "name": "睡觉",
+            "emoji": "🛏️"
+        },
+        {
+            "name": "打游戏",
+            "emoji": "🎮"
+        },
+        {
+            "name": "听歌",
+            "emoji": "🎶"
+        },
+        {
+            "name": "运动",
+            "emoji": "🏃"
+        },
+        {
+            "name": "看剧",
+            "emoji": "📺"
+        },
+        {
+            "name": "聚会",
+            "emoji": "🍻"
+        },
+        {
+            "name": "工作",
+            "emoji": "💼"
+        }
+    ]
+}

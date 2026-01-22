@@ -1,0 +1,281 @@
+/* 让登录卡片在导航与底部之间垂直居中 */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-page {
+  width: min(420px, 92vw); /* 保持原有宽度比例 */
+  max-width: 420px;
+  padding: 24px 26px;
+  margin: auto; /* 在垂直方向由 flex 容器自动居中 */
+  flex: 0 0 auto; /* 不占据剩余高度，按内容自适应 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.auth-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-form {
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.auth-form.active {
+  display: flex;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 16px;
+  font-family: inherit; /* 修复字体变化问题 */
+  transition: all 0.3s ease;
+}
+
+/* 修复浏览器自动填充导致的背景色问题 */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover, 
+.form-group input:-webkit-autofill:focus, 
+.form-group input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.15) inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: transparent !important;
+}
+
+.form-group input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.full-width {
+  width: 100%;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.form-footer a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 5px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+  transition: all 0.2s;
+}
+
+.form-footer a:hover {
+  border-bottom-style: solid;
+  opacity: 0.9;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 密码输入框包装器 */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* 覆盖原有的 input 样式，使其在 wrapper 内正确显示 */
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px; /* 为眼睛图标留出空间 */
+}
+
+/* 显示密码按钮 */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: none !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 16px;
+  transition: color 0.3s;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.toggle-password:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 50%;
+}
+
+/* 忘记密码链接 */
+.forgot-password-link {
+  text-align: right;
+  margin-top: 8px;
+}
+
+.forgot-password-link a {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.3s;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
+}
+
+.forgot-password-link a:hover {
+  color: #fff !important;
+  border-bottom-style: solid;
+  border-bottom-color: #fff;
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+  .login-page {
+    width: 95%;
+    padding: 30px 20px;
+    margin: 20px auto;
+  }
+
+  /* 移动端改为垂直排列，彻底解决空间不足与显示不全问题 */
+  .captcha-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .captcha-wrapper input {
+    flex: none;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .captcha-img {
+    flex: none;
+    width: 100%;
+    height: 50px; /* 固定高度，确保显示清晰 */
+    min-width: unset;
+    object-fit: contain; /* 保证图形不被拉伸变形 */
+    object-position: center; /* 居中显示 */
+  }
+}
+
+@media (max-width: 340px) {
+  .login-page {
+    padding: 25px 15px;
+  }
+  
+  .auth-form {
+    gap: 15px;
+  }
+}
+
+
+
+/* 验证码样式 */
+.captcha-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.captcha-wrapper input {
+  flex: 1;
+  width: auto; /* 覆盖默认 width: 100% */
+}
+
+.captcha-img {
+  height: 100%; /* 填满父容器高度 */
+  width: auto; /* 自动宽度 */
+  min-width: 100px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.2s;
+}
+
+.captcha-img:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* 强制允许滚动，修复内容过长显示不全与滚动条问题 */
+body {
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: 100vh;
+}
+
+/* 验证码加载状态 */
+.captcha-img.loading {
+  opacity: 0.5;
+  cursor: wait;
+  filter: grayscale(100%);
+}
+
+/* 记住我 样式 */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -10px;
+  margin-bottom: 5px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-label input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}

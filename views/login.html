@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <script src="js/theme.js?v=1.1"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>登录 / 注册 - Mooday</title>
+  <link rel="icon" href="img/logo.png" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="img/logo.png">
+  <link rel="stylesheet" href="css/style.css?v=18.1">
+  <link rel="stylesheet" href="css/login.css?v=2.5">
+</head>
+<body>
+  <!-- 全屏视频背景 -->
+  <video id="bgVideo" autoplay muted loop playsinline>
+    <source src="img/CatCoffe.mp4" type="video/mp4">
+    您的浏览器不支持视频标签。
+  </video>
+
+  <!-- 顶部导航栏 -->
+  <header class="top-nav">
+    <a href="/" class="nav-brand">
+      <img src="img/logo.png" alt="Mooday Logo" class="nav-logo">
+      <span class="nav-title">Mooday</span>
+    </a>
+    <div class="nav-right">
+      <button id="themeToggle" class="theme-toggle" title="切换亮/暗模式">🌓</button>
+    </div>
+  </header>
+
+  <main class="page login-page">
+    <header class="main-header">
+      <img src="img/logo.png" alt="Mooday Logo" class="hero-logo">
+      <p class="subtitle">今天的情绪，属于你 - Your Mood, Today.</p>
+    </header>
+
+    <div class="auth-container">
+      <!-- 登录表单 -->
+      <form id="loginForm" class="auth-form active">
+        <div class="form-group">
+          <label for="loginUsername">用户名</label>
+          <input type="text" id="loginUsername" placeholder="请输入用户名" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">密码</label>
+          <div class="password-wrapper">
+            <input type="password" id="loginPassword" placeholder="请输入密码" required>
+            <button type="button" class="toggle-password" aria-label="显示密码">👁️</button>
+          </div>
+          <div class="forgot-password-link">
+            <a href="#" id="forgotPassword">忘记密码？</a>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="loginCaptcha">验证码</label>
+          <div class="captcha-wrapper">
+            <input type="text" id="loginCaptcha" placeholder="不区分大小写" maxlength="4" required>
+            <img src="/api/captcha" class="captcha-img" id="loginCaptchaImg" title="点击刷新">
+          </div>
+        </div>
+        <div class="form-options">
+          <label class="checkbox-label">
+            <input type="checkbox" id="loginRemember"> 记住我 (7天免登录)
+          </label>
+        </div>
+        <button type="submit" class="action-btn primary full-width">
+          <span class="btn-text">登录</span>
+        </button>
+        <div class="form-footer">
+          <span>还没有账号？</span>
+          <a href="#" id="showRegister">立即注册</a>
+        </div>
+      </form>
+
+      <!-- 注册表单 -->
+      <form id="registerForm" class="auth-form">
+        <div class="form-group">
+          <label for="regUsername">用户名</label>
+          <input type="text" id="regUsername" placeholder="设置用户名" required>
+        </div>
+        <div class="form-group">
+          <label for="regPassword">密码</label>
+          <div class="password-wrapper">
+            <input type="password" id="regPassword" placeholder="设置密码" required>
+            <button type="button" class="toggle-password" aria-label="显示密码">👁️</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="regConfirmPassword">确认密码</label>
+          <div class="password-wrapper">
+            <input type="password" id="regConfirmPassword" placeholder="再次输入密码" required>
+            <button type="button" class="toggle-password" aria-label="显示密码">👁️</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="regCaptcha">验证码</label>
+          <div class="captcha-wrapper">
+            <input type="text" id="regCaptcha" placeholder="不区分大小写" maxlength="4" required>
+            <img src="/api/captcha" class="captcha-img" id="regCaptchaImg" title="点击刷新">
+          </div>
+        </div>
+        <button type="submit" class="action-btn secondary full-width">
+          <span class="btn-text">注册</span>
+        </button>
+        <div class="form-footer">
+          <span>已有账号？</span>
+          <a href="#" id="showLogin">去登录</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- 浮动提示 -->
+  <div id="toast" class="toast" aria-hidden="true">
+    <div class="toast-content">
+      <span class="toast-icon"></span>
+      <span class="toast-message"></span>
+    </div>
+  </div>
+
+  <script src="js/login.js?v=1.4"></script>
+</body>
+</html>
