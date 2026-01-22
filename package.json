@@ -1,7 +1,7 @@
 {
   "name": "mooday",
   "version": "1.0.0",
-  "description": "一个记录每日心情的Web应用",
+  "description": "一个轻量级的状态记录Web应用",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

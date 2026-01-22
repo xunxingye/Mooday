@@ -41,10 +41,9 @@ npm install
 
 ## 初始化数据库
 请手动创建数据库并保证用户有相应权限。根据项目需要，创建必要表结构（示例略）。如果你有现成的 SQL 文件，请导入：
-（README 中未包含完整建表脚本，请参考项目中 routes 或 migration 文件手动创建表，或寻求AI帮助）
 
 ```bash
-mysql -u root -p your_database < schema.sql
+mysql -u root -p your_database < database/init.sql
 ```
 
 
